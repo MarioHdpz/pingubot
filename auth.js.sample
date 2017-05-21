@@ -1,0 +1,6 @@
+var bot_token = '<your bot token here>';
+module.exports = {
+  getToken: function () {
+    return bot_token;
+  }
+};
