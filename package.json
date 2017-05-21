@@ -1,0 +1,17 @@
+{
+  "name": "pingubot",
+  "version": "1.0.0",
+  "description": "Slack ioT bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "pingubot"
+  ],
+  "author": "Mario HD",
+  "license": "ISC",
+  "dependencies": {
+    "@slack/client": "^3.9.0"
+  }
+}
