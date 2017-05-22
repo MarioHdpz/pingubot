@@ -21,19 +21,9 @@ void setup() {
     USE_SERIAL.begin(115200);
    // USE_SERIAL.setDebugOutput(true);
 
-    USE_SERIAL.println();
-    USE_SERIAL.println();
-    USE_SERIAL.println();
-
-    for(uint8_t t = 4; t > 0; t--) {
-        USE_SERIAL.printf("[SETUP] WAIT %d...\n", t);
-        USE_SERIAL.flush();
-        delay(1000);
-    }
-
     WiFiMulti.addAP("GUEST");
     WiFiMulti.addAP("Mario AP","holacrayola");
-
+    WiFiMulti.addAP("TP-LINK_7E44","48010788");
 }
 
 void loop() {
@@ -43,9 +33,7 @@ void loop() {
         HTTPClient http;
 
         USE_SERIAL.print("[HTTP] begin...\n");
-        // configure traged server and url
-        //http.begin("https://192.168.1.12/test.html", "7a 9c f4 db 40 d3 62 5a 6e 21 bc 5c cc 66 c8 3e a1 45 59 38"); //HTTPS
-        http.begin("http://www.redmaceta.com/wc_set.php"); //HTTP
+        http.begin("http://173.255.221.68:2500/wc-set?bathroom=men"); //HTTP
 
         USE_SERIAL.print("[HTTP] GET...\n");
         // start connection and send HTTP header
@@ -60,15 +48,15 @@ void loop() {
             if(httpCode == HTTP_CODE_OK) {
                 String payload = http.getString();
                 USE_SERIAL.println(payload);
-                digitalWrite(LED_BUILTIN, HIGH);
+                digitalWrite(LED_BUILTIN, LOW);
+                delay(300);              
             }
         } else {
             USE_SERIAL.printf("[HTTP] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
         }
-
         http.end();
     }
-    delay(5000);
-    digitalWrite(LED_BUILTIN, LOW);
+    digitalWrite(LED_BUILTIN, HIGH);
+    delay(4700);
 }
 

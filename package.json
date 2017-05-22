@@ -12,6 +12,7 @@
   "author": "Mario HD",
   "license": "ISC",
   "dependencies": {
-    "@slack/client": "^3.9.0"
+    "@slack/client": "^3.9.0",
+    "express": "^4.15.3"
   }
 }
