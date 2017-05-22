@@ -9,6 +9,9 @@ var app = express(),
     men = new Date(),
     women = new Date();
 
+var menWords = ["HOMBRE", "LINCE", "MACHO", "NIÑO"],
+    womenWords = ["MUJER", "ELFA", "HEMBRA", "NIÑA"]; 
+
 var wcLastConnection = new Date();
 
 app.listen(2500, function () {
@@ -34,13 +37,25 @@ rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(message) {
   var menState = (men > now ? "Ocupado ... :hankey:" : "Disponible");
   var womenState = (women > now ? "Ocupado ... :hankey:" : "Disponible");
   console.log(message)
-  var text = message.text.toUpperCase();
-  if (text.includes("BAÑO")) {
-    response = ":girl::skin-tone-2: : " + womenState +" \n" + ":boy::skin-tone-2: : " + menState + " \n";
-  } else {
-    response = "No entiendo lo que me quieres decir, por ahora sólo entiendo de baños :toilet:";
+  if(typeof message.text != "undefined"){
+    var text = message.text.toUpperCase();
+    if (text.includes("BAÑO")) {
+      response = ":girl::skin-tone-2: : " + womenState +" \n" + ":boy::skin-tone-2: : " + menState + " \n";
+      menWords.forEach(function(value) {
+        if(text.includes(value)) {
+          response = "El :toilet: de hombres está disponible. ¡Corre! :runner::skin-tone-2:";
+        }
+      });
+      womenWords.forEach(function(value) {
+        if(text.includes(value)) {
+          response = "El :toilet: de mujeres está disponible. ¡Corre! :dancer::skin-tone-2:";
+        }
+      });
+    } else {
+      response = "No entiendo lo que me quieres decir, por ahora sólo entiendo de baños :toilet:";
+    }
+    rtm.sendMessage(response, dmChannel);
   }
-  rtm.sendMessage(response, dmChannel);
 });
 
 rtm.start();
