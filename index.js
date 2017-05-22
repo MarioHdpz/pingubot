@@ -9,8 +9,8 @@ var app = express(),
     men = new Date(),
     women = new Date();
 
-var menWords = ["HOMBRE", "LINCE", "MACHO", "NIÑO"],
-    womenWords = ["MUJER", "ELFA", "HEMBRA", "NIÑA"]; 
+var menWords = ["HOMBRE", "LINCE", "MACHO", "NIÑO", "CHICO"],
+    womenWords = ["MUJER", "ELFA", "HEMBRA", "NIÑA", "CHICA"]; 
 
 var wcLastConnection = new Date();
 
@@ -18,7 +18,7 @@ app.listen(2500, function () {
   console.log('Server started, listening on port 2500...');
 });
 
-app.get('/wc-set', function (req, res) {
+app.get('/wc-set', function (req, res) { 
   console.log('Setting wc_set variable!' + ' gender: ' + req.query.bathroom)
   if (req.query.bathroom == "men") {
     men = new Date();
