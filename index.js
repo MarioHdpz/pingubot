@@ -43,12 +43,12 @@ rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(message) {
       response = ":girl::skin-tone-2: : " + womenState +" \n" + ":boy::skin-tone-2: : " + menState + " \n";
       menWords.forEach(function(value) {
         if(text.includes(value)) {
-          response = "El :toilet: de hombres está disponible. ¡Corre! :runner::skin-tone-2:";
+          response = (men > now ? "El :toilet: de hombres está ocupado ... :hankey:" : "El :toilet: de hombres está disponible. ¡Corre! :runner::skin-tone-2:");
         }
       });
       womenWords.forEach(function(value) {
         if(text.includes(value)) {
-          response = "El :toilet: de mujeres está disponible. ¡Corre! :dancer::skin-tone-2:";
+          response = (women > now ? "El :toilet: de mujeres está ocupado ... :hankey:" : "El :toilet: de mujeres está disponible. ¡Corre! :dancer::skin-tone-2:");
         }
       });
     } else {
