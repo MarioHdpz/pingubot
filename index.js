@@ -33,13 +33,13 @@ app.get('/wc-set', function (req, res) {
 
 rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(message) {
   var dmChannel = message.channel;
-  var response = ":penguin:";
-  var now = new Date();
+  var response = "No entiendo lo que me quieres decir, por ahora sólo entiendo de baños :toilet:";  var now = new Date();
   var menState = (men > now ? "Ocupado ... :hankey:" : "Disponible");
   var womenState = (women > now ? "Ocupado ... :hankey:" : "Disponible");
   console.log(message)
   if(typeof message.text != "undefined"){
     var text = message.text.toUpperCase();
+    
     wcWords.forEach(function(wcWord) {
       if(text.includes(wcWord)) {
         response = ":girl::skin-tone-2: : " + womenState +" \n" + ":boy::skin-tone-2: : " + menState + " \n";
@@ -53,8 +53,6 @@ rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(message) {
             response = (women > now ? "El :toilet: de mujeres está ocupado ... :hankey:" : "El :toilet: de mujeres está disponible. ¡Corre! :dancer::skin-tone-2:");
           }
         });
-      } else {
-        response = "No entiendo lo que me quieres decir, por ahora sólo entiendo de baños :toilet:";
       }
     });
     rtm.sendMessage(response, dmChannel);
