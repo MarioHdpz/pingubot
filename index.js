@@ -10,7 +10,8 @@ var app = express(),
     women = new Date();
 
 var menWords = ["HOMBRE", "LINCE", "MACHO", "NIÑO", "CHICO"],
-    womenWords = ["MUJER", "ELFA", "HEMBRA", "NIÑA", "CHICA"]; 
+    womenWords = ["MUJER", "ELFA", "HEMBRA", "NIÑA", "CHICA"],
+    wcWords = ["BAÑO", "WC", "TAZA", "ORINAR", "PIPI", "POPO", "TOCADOR", "LETRINA"];  
 
 var wcLastConnection = new Date();
 
@@ -39,21 +40,23 @@ rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(message) {
   console.log(message)
   if(typeof message.text != "undefined"){
     var text = message.text.toUpperCase();
-    if (text.includes("BAÑO")) {
-      response = ":girl::skin-tone-2: : " + womenState +" \n" + ":boy::skin-tone-2: : " + menState + " \n";
-      menWords.forEach(function(value) {
-        if(text.includes(value)) {
-          response = (men > now ? "El :toilet: de hombres está ocupado ... :hankey:" : "El :toilet: de hombres está disponible. ¡Corre! :runner::skin-tone-2:");
-        }
-      });
-      womenWords.forEach(function(value) {
-        if(text.includes(value)) {
-          response = (women > now ? "El :toilet: de mujeres está ocupado ... :hankey:" : "El :toilet: de mujeres está disponible. ¡Corre! :dancer::skin-tone-2:");
-        }
-      });
-    } else {
-      response = "No entiendo lo que me quieres decir, por ahora sólo entiendo de baños :toilet:";
-    }
+    wcWords.forEach(function(wcWord) {
+      if(text.includes(wcWord)) {
+        response = ":girl::skin-tone-2: : " + womenState +" \n" + ":boy::skin-tone-2: : " + menState + " \n";
+        menWords.forEach(function(value) {
+          if(text.includes(value)) {
+            response = (men > now ? "El :toilet: de hombres está ocupado ... :hankey:" : "El :toilet: de hombres está disponible. ¡Corre! :runner::skin-tone-2:");
+          }
+        });
+        womenWords.forEach(function(value) {
+          if(text.includes(value)) {
+            response = (women > now ? "El :toilet: de mujeres está ocupado ... :hankey:" : "El :toilet: de mujeres está disponible. ¡Corre! :dancer::skin-tone-2:");
+          }
+        });
+      } else {
+        response = "No entiendo lo que me quieres decir, por ahora sólo entiendo de baños :toilet:";
+      }
+    });
     rtm.sendMessage(response, dmChannel);
   }
 });
